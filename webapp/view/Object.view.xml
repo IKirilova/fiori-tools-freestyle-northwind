@@ -1,0 +1,110 @@
+<mvc:View controllerName="sap.teched.fioritoolsfreestylenorthwind.controller.Object"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}">
+
+		<semantic:titleHeading>
+			<Title text="{ProductName}" class="sapUiMediumMarginTop" level="H2"/>
+		</semantic:titleHeading>
+
+		<!--  RAN ADDED titleBreadcrumbs START  -->
+		<semantic:titleBreadcrumbs>
+			<Breadcrumbs currentLocationText="{ProductName}">
+				<Link press=".onNavBack" text="Products"/>
+			</Breadcrumbs>
+		</semantic:titleBreadcrumbs>
+
+		<!--  RAN ADDED titleBreadcrumbs END  -->
+
+		<semantic:headerContent>
+			<ObjectNumber number="{
+					path: 'UnitPrice',
+					formatter: '.formatter.numberUnit'
+				}" unit="{QuantityPerUnit}" />
+		</semantic:headerContent>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<!-- RAN ADDED semantic:content section START -->
+		<semantic:content>
+			<VBox>
+				<form:SimpleForm title="Supplier Info" layout="ResponsiveGridLayout" singleContainerFullSize="false" columnsXL="1" columnsL="1" columnsM="1" visible="{= ${objectView>/busy} ? false : true }">
+					<form:content>
+						<Label text="Supplier ID"></Label>
+						<Text text="{Supplier/SupplierID}"></Text>
+						<Label text="Company Name"></Label>
+						<Text text="{Supplier/CompanyName}"></Text>
+						<Label text="Contact Name"></Label>
+						<Text text="{Supplier/ContactName}"></Text>
+						<Label text="Contact Title"></Label>
+						<Text text="{Supplier/ContactTitle}"></Text>
+						<Label text="Address"></Label>
+						<Text text="{Supplier/Address}, {Supplier/City},{Supplier/PostalCode}, {Supplier/Country}."></Text>
+					</form:content>
+				</form:SimpleForm>
+
+				<Table inset="false" items="{Order_Details}" visible="{= ${objectView>/busy} ? false : true }">
+					<headerToolbar>
+						<OverflowToolbar>
+
+							<Title id="tableHeader" text="Orders" level="H3"/>
+							<ToolbarSpacer />
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="Order ID"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Unit Price"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Quantity"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Discount"/>
+						</Column>
+						<Column>
+							<Text text="Fright"/>
+						</Column>
+						<Column>
+							<Text text="Shipment"></Text>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Inactive">
+							<cells>
+								<ObjectIdentifier title="{OrderID}"/>
+								<ObjectNumber number="{
+									path: 'UnitPrice',
+									formatter: '.formatter.numberUnit'
+								}" unit="EUR"/>
+								<ObjectNumber number="{
+									path: 'Quantity',
+									formatter: '.formatter.numberUnit'
+								}" unit="PC"/>
+								<ObjectNumber number="{
+									path: 'Discount',
+									formatter: '.formatter.percent'
+								}" unit="%"/>
+								<Text text="{Order/Freight}"></Text>
+								<Link text="View shipment info"></Link>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+
+		</semantic:content>
+
+		<!-- RAN ADDED semantic:content section END -->
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>
