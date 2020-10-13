@@ -189,8 +189,8 @@ sap.ui.define([
 
 		_createFilterByTabKey(sKey){
 			switch (sKey){
-				case "PlantyInStock":
-					// planty is when we have more than 15 items in stock
+				case "PlentyInStock":
+					// plenty is when we have more than 15 items in stock
 					return new Filter("UnitsInStock", FilterOperator.GT, 15);
 				case "Shortage":
 					// shortage is when the amount is stock is between 1 to 15
